@@ -3,7 +3,6 @@ name: Build & Release Android APK
 on:
   push:
     branches: [ "main", "master" ]
-    tags: [ "v*" ]
   workflow_dispatch:
 
 permissions:
@@ -14,7 +13,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -22,27 +21,23 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.5'
-
-      - name: Copy Latest SPA into Android Assets
+      - name: Sync Web App into Android Assets
         run: |
           mkdir -p android/app/src/main/assets/www
-          cp index.html android/app/src/main/assets/www/index.html
+          cp -f index.html android/app/src/main/assets/www/index.html
           cp -f manifest.json sw.js icon-192.png icon-512.png android/app/src/main/assets/www/ || true
 
-      - name: Build Installable APK
+      - name: Compile Signed Installable APK
         working-directory: ./android
         run: |
-          gradle assembleDebug
+          gradle assembleDebug --no-daemon
           cp app/build/outputs/apk/debug/app-debug.apk ../WordStudioPro-Android-Universal.apk
 
       - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WordStudioPro-Android-APK
+          path: WordStudioPro-Android-Universal.apk
         uses: actions/upload-artifact@v4
         with:
           name: WordStudioPro-Android-APK
