@@ -1,0 +1,11 @@
+{
+  "appId": "com.wordstudiopro.app",
+  "appName": "Word Studio Pro",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": true
+  }
+}

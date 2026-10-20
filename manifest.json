@@ -1,0 +1,20 @@
+{
+  "name": "Word Studio Pro — Desktop Document Processor",
+  "short_name": "WordStudioPro",
+  "description": "Desktop-grade Microsoft Word style Rich Text & Document Processor (.DOCX, .DOC, .PDF) for Android tablets, foldables, and desktops.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#185ABD",
+  "theme_color": "#185ABD",
+  "file_handlers": [
+    {
+      "action": "./index.html",
+      "accept": {
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+        "application/msword": [".doc"],
+        "application/pdf": [".pdf"]
+      }
+    }
+  ]
+}
